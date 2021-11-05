@@ -10,7 +10,7 @@ const authService = {
         })
     },
 
-    login: async (data)=>{
+    login: async function(data){
         try {
             const {email, password} = data
             let userExists = await User.findOne({email:email}, 'name email password').exec()
@@ -34,6 +34,7 @@ const authService = {
             await userData.save()
             let token = await this.signToken(userData._id)
             return {
+                userData,
                 code: 200,
                 token
             }
